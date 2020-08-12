@@ -2,9 +2,13 @@ const express = require('express')
 
 const User = require('../models/user.js')
 const Order = require('../models/order.js')
-
 const router = express.Router();
 //const mongooseDynamic = require('mongoose-dynamic-schemas')
+
+
+
+
+//User creation
 router.post('/register',async (req,res)=>{
 
 
@@ -35,19 +39,17 @@ router.post('/register',async (req,res)=>{
 	}
 })
 
+
+//updating user schema
 router.get('/update/userOrders',async(req,res)=>{
 	try{
 		
 
-
-
-		const insert = await User.aggregate([{$addFields :{"myorders":0}}])
-	
-
-		if(insert )
+const insert = await User.update({},{$set:{"myorders":0}} ,{upsert:false,multi:true})
+		 //User.aggregate([{"$addFields" :{"myorders":0}}])
+		if(insert)
 			
 		{
-			console.log(insert)
 			const allOrders=await Order.find({}).populate('user').exec();
 
 			allOrders.map(async(list)=>{

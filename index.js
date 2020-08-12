@@ -4,7 +4,6 @@ const bodyParser= require('body-parser')
 const port= process.env.PORT || 7000;
 const userRoute= require('./routes/userRoute')
 const orderRoute= require('./routes/orderRoute')
-//const User= require('./models/user')
 
 const Order= require('./models/order')
 
